@@ -1,0 +1,815 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Oportunidades Tecnológicas en Chillán - Soluciones de IA</title>
+    
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <!-- AOS Animation Library -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Custom CSS -->
+    <style>
+        :root {
+            --primary-color: #2E7D32;
+            --secondary-color: #43A047;
+            --accent-color: #FFC107;
+            --dark-color: #1B5E20;
+            --light-color: #E8F5E8;
+            --gradient-primary: linear-gradient(135deg, #2E7D32 0%, #43A047 100%);
+            --gradient-secondary: linear-gradient(135deg, #43A047 0%, #66BB6A 100%);
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+        }
+
+        .navbar {
+            background: var(--gradient-primary) !important;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            padding: 1rem 0;
+        }
+
+        .hero-section {
+            background: var(--gradient-primary);
+            color: white;
+            padding: 100px 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="50" cy="50" r="1" fill="white" opacity="0.1"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
+            animation: float 20s infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+
+        .card {
+            border: none;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            overflow: hidden;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+        }
+
+        .card-header {
+            background: var(--gradient-secondary);
+            color: white;
+            border: none;
+            padding: 1.5rem;
+        }
+
+        .stat-card {
+            background: white;
+            border-radius: 20px;
+            padding: 2rem;
+            text-align: center;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: scale(1.05);
+        }
+
+        .stat-number {
+            font-size: 3rem;
+            font-weight: bold;
+            color: var(--primary-color);
+            margin: 0;
+        }
+
+        .opportunity-card {
+            background: white;
+            border-radius: 20px;
+            padding: 2rem;
+            margin: 1rem 0;
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .opportunity-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: var(--gradient-primary);
+            transition: all 0.5s ease;
+            z-index: 1;
+            opacity: 0.1;
+        }
+
+        .opportunity-card:hover::before {
+            left: 0;
+        }
+
+        .opportunity-card > * {
+            position: relative;
+            z-index: 2;
+        }
+
+        .sector-icon {
+            width: 80px;
+            height: 80px;
+            background: var(--gradient-primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem;
+            color: white;
+            font-size: 2rem;
+        }
+
+        .progress-custom {
+            height: 10px;
+            border-radius: 10px;
+            background: #e9ecef;
+            overflow: hidden;
+        }
+
+        .progress-bar-custom {
+            background: var(--gradient-primary);
+            border-radius: 10px;
+            transition: width 2s ease;
+        }
+
+        .modal-header {
+            background: var(--gradient-primary);
+            color: white;
+            border: none;
+        }
+
+        .btn-primary-custom {
+            background: var(--gradient-primary);
+            border: none;
+            border-radius: 25px;
+            padding: 12px 30px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary-custom:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(46, 125, 50, 0.3);
+        }
+
+        .dashboard-section {
+            background: white;
+            border-radius: 25px;
+            padding: 2rem;
+            margin: 2rem 0;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .section-title {
+            color: var(--dark-color);
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 2rem;
+            position: relative;
+            padding-bottom: 1rem;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: var(--gradient-primary);
+            border-radius: 2px;
+        }
+
+        .floating-element {
+            animation: floating 3s ease-in-out infinite;
+        }
+
+        @keyframes floating {
+            0% { transform: translate(0, 0px); }
+            50% { transform: translate(0, 15px); }
+            100% { transform: translate(0, 0px); }
+        }
+
+        .glassmorphism {
+            background: rgba(255, 255, 255, 0.25);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+        <div class="container">
+            <a class="navbar-brand fw-bold" href="#">
+                <i class="fas fa-brain me-2"></i>TechSolutions Chillán
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="#dashboard">Dashboard</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#oportunidades">Oportunidades</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#sectores">Sectores</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#contacto">Contacto</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-section text-center" data-aos="fade-up">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 mx-auto">
+                    <h1 class="display-3 fw-bold mb-4">Transformando Chillán con Inteligencia Artificial</h1>
+                    <p class="lead mb-5">Soluciones tecnológicas innovadoras para la capital agroindustrial de Chile</p>
+                    <button class="btn btn-primary-custom btn-lg me-3" onclick="scrollToSection('dashboard')">
+                        <i class="fas fa-chart-line me-2"></i>Ver Dashboard
+                    </button>
+                    <button class="btn btn-outline-light btn-lg" onclick="scrollToSection('oportunidades')">
+                        <i class="fas fa-lightbulb me-2"></i>Explorar Oportunidades
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Dashboard Section -->
+    <section id="dashboard" class="py-5">
+        <div class="container">
+            <h2 class="section-title text-center" data-aos="fade-up">Dashboard Económico Regional</h2>
+            
+            <!-- Statistics Cards -->
+            <div class="row mb-5">
+                <div class="col-md-3 mb-4" data-aos="fade-up" data-aos-delay="100">
+                    <div class="stat-card">
+                        <div class="sector-icon">
+                            <i class="fas fa-industry"></i>
+                        </div>
+                        <h3 class="stat-number">9,007</h3>
+                        <p class="text-muted mb-0">Empresas Registradas</p>
+                    </div>
+                </div>
+                <div class="col-md-3 mb-4" data-aos="fade-up" data-aos-delay="200">
+                    <div class="stat-card">
+                        <div class="sector-icon">
+                            <i class="fas fa-seedling"></i>
+                        </div>
+                        <h3 class="stat-number">18.5%</h3>
+                        <p class="text-muted mb-0">Empleo Agrícola</p>
+                    </div>
+                </div>
+                <div class="col-md-3 mb-4" data-aos="fade-up" data-aos-delay="300">
+                    <div class="stat-card">
+                        <div class="sector-icon">
+                            <i class="fas fa-graduation-cap"></i>
+                        </div>
+                        <h3 class="stat-number">10.7%</h3>
+                        <p class="text-muted mb-0">Sector Educación</p>
+                    </div>
+                </div>
+                <div class="col-md-3 mb-4" data-aos="fade-up" data-aos-delay="400">
+                    <div class="stat-card">
+                        <div class="sector-icon">
+                            <i class="fas fa-robot"></i>
+                        </div>
+                        <h3 class="stat-number">$4.7B</h3>
+                        <p class="text-muted mb-0">Mercado IA Agrícola 2028</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Charts Section -->
+            <div class="row">
+                <div class="col-lg-6 mb-4" data-aos="fade-right">
+                    <div class="dashboard-section">
+                        <h4 class="mb-4"><i class="fas fa-chart-pie me-2 text-primary"></i>Distribución Sectorial</h4>
+                        <canvas id="sectorChart" width="400" height="300"></canvas>
+                    </div>
+                </div>
+                <div class="col-lg-6 mb-4" data-aos="fade-left">
+                    <div class="dashboard-section">
+                        <h4 class="mb-4"><i class="fas fa-chart-line me-2 text-primary"></i>Crecimiento IA en Agricultura</h4>
+                        <canvas id="aiGrowthChart" width="400" height="300"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Opportunities Section -->
+    <section id="oportunidades" class="py-5 bg-light">
+        <div class="container">
+            <h2 class="section-title text-center" data-aos="fade-up">Oportunidades Tecnológicas Identificadas</h2>
+            
+            <div class="row">
+                <!-- RAG Systems -->
+                <div class="col-lg-6 mb-4" data-aos="fade-up" data-aos-delay="100">
+                    <div class="opportunity-card" onclick="openModal('ragModal')">
+                        <div class="sector-icon">
+                            <i class="fas fa-database"></i>
+                        </div>
+                        <h4>Sistemas RAG para Agroindustria</h4>
+                        <p class="text-muted">Implementación de sistemas de generación aumentada por recuperación para optimizar la gestión del conocimiento agrícola.</p>
+                        <div class="progress-custom mb-3">
+                            <div class="progress-bar-custom" style="width: 85%"></div>
+                        </div>
+                        <div class="d-flex justify-content-between">
+                            <span class="badge bg-primary">Alto Potencial</span>
+                            <span class="text-muted">85% Viabilidad</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- IoT Environmental Monitoring -->
+                <div class="col-lg-6 mb-4" data-aos="fade-up" data-aos-delay="200">
+                    <div class="opportunity-card" onclick="openModal('iotModal')">
+                        <div class="sector-icon">
+                            <i class="fas fa-cloud-sun"></i>
+                        </div>
+                        <h4>Monitoreo Atmosférico IoT</h4>
+                        <p class="text-muted">Redes de sensores inteligentes para monitoreo en tiempo real de variables atmosféricas y calidad del aire.</p>
+                        <div class="progress-custom mb-3">
+                            <div class="progress-bar-custom" style="width: 90%"></div>
+                        </div>
+                        <div class="d-flex justify-content-between">
+                            <span class="badge bg-success">Muy Alto</span>
+                            <span class="text-muted">90% Viabilidad</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Educational AI -->
+                <div class="col-lg-6 mb-4" data-aos="fade-up" data-aos-delay="300">
+                    <div class="opportunity-card" onclick="openModal('educationModal')">
+                        <div class="sector-icon">
+                            <i class="fas fa-chalkboard-teacher"></i>
+                        </div>
+                        <h4>IA en Educación Técnica</h4>
+                        <p class="text-muted">Plataformas inteligentes para personalización del aprendizaje en instituciones como UBB e INACAP.</p>
+                        <div class="progress-custom mb-3">
+                            <div class="progress-bar-custom" style="width: 75%"></div>
+                        </div>
+                        <div class="d-flex justify-content-between">
+                            <span class="badge bg-info">Medio-Alto</span>
+                            <span class="text-muted">75% Viabilidad</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Process Optimization -->
+                <div class="col-lg-6 mb-4" data-aos="fade-up" data-aos-delay="400">
+                    <div class="opportunity-card" onclick="openModal('processModal')">
+                        <div class="sector-icon">
+                            <i class="fas fa-cogs"></i>
+                        </div>
+                        <h4>Optimización de Procesos IA</h4>
+                        <p class="text-muted">Sistemas inteligentes para optimización de procesos industriales en empresas como Vitafoods e Ideal.</p>
+                        <div class="progress-custom mb-3">
+                            <div class="progress-bar-custom" style="width: 80%"></div>
+                        </div>
+                        <div class="d-flex justify-content-between">
+                            <span class="badge bg-primary">Alto Potencial</span>
+                            <span class="text-muted">80% Viabilidad</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sectors Section -->
+    <section id="sectores" class="py-5">
+        <div class="container">
+            <h2 class="section-title text-center" data-aos="fade-up">Sectores Objetivo</h2>
+            
+            <div class="row">
+                <div class="col-lg-3 col-md-6 mb-4" data-aos="zoom-in" data-aos-delay="100">
+                    <div class="card h-100">
+                        <div class="card-header text-center">
+                            <i class="fas fa-tractor fa-3x mb-3"></i>
+                            <h5>Agroindustria</h5>
+                        </div>
+                        <div class="card-body">
+                            <ul class="list-unstyled">
+                                <li><i class="fas fa-check text-success me-2"></i>Vitafoods SpA</li>
+                                <li><i class="fas fa-check text-success me-2"></i>Ideal (Grupo Bimbo)</li>
+                                <li><i class="fas fa-check text-success me-2"></i>Cumfrut</li>
+                                <li><i class="fas fa-check text-success me-2"></i>Colún</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-3 col-md-6 mb-4" data-aos="zoom-in" data-aos-delay="200">
+                    <div class="card h-100">
+                        <div class="card-header text-center">
+                            <i class="fas fa-university fa-3x mb-3"></i>
+                            <h5>Educación</h5>
+                        </div>
+                        <div class="card-body">
+                            <ul class="list-unstyled">
+                                <li><i class="fas fa-check text-success me-2"></i>Universidad del Bío-Bío</li>
+                                <li><i class="fas fa-check text-success me-2"></i>INACAP Chillán</li>
+                                <li><i class="fas fa-check text-success me-2"></i>Centros de Investigación</li>
+                                <li><i class="fas fa-check text-success me-2"></i>FabLab INACAP</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-3 col-md-6 mb-4" data-aos="zoom-in" data-aos-delay="300">
+                    <div class="card h-100">
+                        <div class="card-header text-center">
+                            <i class="fas fa-industry fa-3x mb-3"></i>
+                            <h5>Manufactura</h5>
+                        </div>
+                        <div class="card-body">
+                            <ul class="list-unstyled">
+                                <li><i class="fas fa-check text-success me-2"></i>Parque Industrial Chillán</li>
+                                <li><i class="fas fa-check text-success me-2"></i>Empresas Logísticas</li>
+                                <li><i class="fas fa-check text-success me-2"></i>Sector Maderero</li>
+                                <li><i class="fas fa-check text-success me-2"></i>Procesamiento Alimentos</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-3 col-md-6 mb-4" data-aos="zoom-in" data-aos-delay="400">
+                    <div class="card h-100">
+                        <div class="card-header text-center">
+                            <i class="fas fa-leaf fa-3x mb-3"></i>
+                            <h5>Ambiental</h5>
+                        </div>
+                        <div class="card-body">
+                            <ul class="list-unstyled">
+                                <li><i class="fas fa-check text-success me-2"></i>SINCA (Sistema Nacional)</li>
+                                <li><i class="fas fa-check text-success me-2"></i>Monitoreo Calidad Aire</li>
+                                <li><i class="fas fa-check text-success me-2"></i>Sensor IoT Networks</li>
+                                <li><i class="fas fa-check text-success me-2"></i>Gestión Recursos</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contacto" class="py-5 bg-dark text-white">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 mx-auto text-center" data-aos="fade-up">
+                    <h2 class="mb-4">¿Listo para Transformar tu Empresa?</h2>
+                    <p class="lead mb-5">Contáctanos para desarrollar soluciones de IA personalizadas para tu organización en Chillán</p>
+                    <div class="row justify-content-center">
+                        <div class="col-md-4 mb-3">
+                            <div class="glassmorphism p-4 rounded">
+                                <i class="fas fa-envelope fa-2x mb-3 text-primary"></i>
+                                <h5>Email</h5>
+                                <p>info@techsolutions-chillan.cl</p>
+                            </div>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <div class="glassmorphism p-4 rounded">
+                                <i class="fas fa-phone fa-2x mb-3 text-primary"></i>
+                                <h5>Teléfono</h5>
+                                <p>+56 9 XXXX XXXX</p>
+                            </div>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <div class="glassmorphism p-4 rounded">
+                                <i class="fas fa-map-marker-alt fa-2x mb-3 text-primary"></i>
+                                <h5>Ubicación</h5>
+                                <p>Chillán, Región de Ñuble</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Modals -->
+    <!-- RAG Modal -->
+    <div class="modal fade" id="ragModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title"><i class="fas fa-database me-2"></i>Sistemas RAG para Agroindustria</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h6><i class="fas fa-bullseye me-2 text-primary"></i>Objetivos</h6>
+                            <ul>
+                                <li>Gestión inteligente del conocimiento agrícola</li>
+                                <li>Optimización de consultas técnicas</li>
+                                <li>Automatización de respuestas especializadas</li>
+                            </ul>
+                        </div>
+                        <div class="col-md-6">
+                            <h6><i class="fas fa-users me-2 text-primary"></i>Clientes Objetivo</h6>
+                            <ul>
+                                <li>Vitafoods SpA - Gestión de procesos</li>
+                                <li>Ideal - Optimización producción</li>
+                                <li>Centros de investigación UBB</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <hr>
+                    <h6><i class="fas fa-chart-line me-2 text-primary"></i>Beneficios Esperados</h6>
+                    <div class="row">
+                        <div class="col-md-4 text-center">
+                            <div class="stat-number text-primary">40%</div>
+                            <small>Reducción tiempo consultas</small>
+                        </div>
+                        <div class="col-md-4 text-center">
+                            <div class="stat-number text-primary">60%</div>
+                            <small>Mejora en precisión</small>
+                        </div>
+                        <div class="col-md-4 text-center">
+                            <div class="stat-number text-primary">35%</div>
+                            <small>Ahorro en costos</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- IoT Modal -->
+    <div class="modal fade" id="iotModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title"><i class="fas fa-cloud-sun me-2"></i>Monitoreo Atmosférico IoT</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h6><i class="fas fa-thermometer me-2 text-primary"></i>Variables Monitoreadas</h6>
+                            <ul>
+                                <li>Temperatura y humedad</li>
+                                <li>Calidad del aire (PM2.5, PM10)</li>
+                                <li>CO2, VOC y gases contaminantes</li>
+                                <li>Presión atmosférica</li>
+                            </ul>
+                        </div>
+                        <div class="col-md-6">
+                            <h6><i class="fas fa-industry me-2 text-primary"></i>Sectores de Aplicación</h6>
+                            <ul>
+                                <li>Agricultura de precisión</li>
+                                <li>Control ambiental urbano</li>
+                                <li>Industria alimentaria</li>
+                                <li>Cumplimiento normativo</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <hr>
+                    <h6><i class="fas fa-wifi me-2 text-primary"></i>Tecnología</h6>
+                    <p>Redes LPWAN para transmisión de datos, sensores de bajo costo con capacidad de conectar hasta 32 dispositivos por nodo. Integración con sistemas existentes y dashboard web en tiempo real.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Education Modal -->
+    <div class="modal fade" id="educationModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title"><i class="fas fa-chalkboard-teacher me-2"></i>IA en Educación Técnica</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h6><i class="fas fa-graduation-cap me-2 text-primary"></i>Instituciones Target</h6>
+                            <ul>
+                                <li>Universidad del Bío-Bío Campus Chillán</li>
+                                <li>INACAP Sede Chillán</li>
+                                <li>Centro de Investigación CIDCIE</li>
+                                <li>FabLab INACAP</li>
+                            </ul>
+                        </div>
+                        <div class="col-md-6">
+                            <h6><i class="fas fa-brain me-2 text-primary"></i>Soluciones IA</h6>
+                            <ul>
+                                <li>Personalización del aprendizaje</li>
+                                <li>Sistemas de tutoría inteligente</li>
+                                <li>Análisis predictivo de rendimiento</li>
+                                <li>Automatización administrativa</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <hr>
+                    <h6><i class="fas fa-rocket me-2 text-primary"></i>Impacto Proyectado</h6>
+                    <p>Mejora del 25% en retención estudiantil, reducción de 30% en tiempo de gestión administrativa, y aumento del 40% en personalización de contenidos educativos.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Process Modal -->
+    <div class="modal fade" id="processModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title"><i class="fas fa-cogs me-2"></i>Optimización de Procesos IA</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h6><i class="fas fa-factory me-2 text-primary"></i>Empresas Objetivo</h6>
+                            <ul>
+                                <li>Vitafoods - Optimización producción</li>
+                                <li>Ideal (Bimbo) - Control calidad</li>
+                                <li>Parque Industrial Chillán</li>
+                                <li>Empresas logísticas</li>
+                            </ul>
+                        </div>
+                        <div class="col-md-6">
+                            <h6><i class="fas fa-chart-bar me-2 text-primary"></i>Áreas de Mejora</h6>
+                            <ul>
+                                <li>Mantenimiento predictivo</li>
+                                <li>Control de calidad automatizado</li>
+                                <li>Optimización de inventarios</li>
+                                <li>Eficiencia energética</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <hr>
+                    <h6><i class="fas fa-dollar-sign me-2 text-primary"></i>ROI Estimado</h6>
+                    <div class="row text-center">
+                        <div class="col-md-3">
+                            <div class="stat-number text-primary">20%</div>
+                            <small>Reducción costos</small>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="stat-number text-primary">15%</div>
+                            <small>Aumento productividad</small>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="stat-number text-primary">25%</div>
+                            <small>Mejora calidad</small>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="stat-number text-primary">18M</div>
+                            <small>ROI meses</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- AOS JS -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+
+    <script>
+        // Initialize AOS
+        AOS.init({
+            duration: 1000,
+            once: true
+        });
+
+        // Smooth scroll function
+        function scrollToSection(sectionId) {
+            document.getElementById(sectionId).scrollIntoView({
+                behavior: 'smooth',
+                block: 'start'
+            });
+        }
+
+        // Modal functions
+        function openModal(modalId) {
+            const modal = new bootstrap.Modal(document.getElementById(modalId));
+            modal.show();
+        }
+
+        // Initialize Charts
+        window.addEventListener('load', function() {
+            // Sector Distribution Chart
+            const sectorCtx = document.getElementById('sectorChart').getContext('2d');
+            new Chart(sectorCtx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Agricultura', 'Comercio', 'Educación', 'Manufactura', 'Servicios', 'Otros'],
+                    datasets: [{
+                        data: [18.5, 16.1, 10.7, 10.2, 25.5, 19.0],
+                        backgroundColor: [
+                            '#2E7D32',
+                            '#43A047',
+                            '#66BB6A',
+                            '#81C784',
+                            '#A5D6A7',
+                            '#C8E6C9'
+                        ],
+                        borderWidth: 0
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            position: 'bottom'
+                        }
+                    }
+                }
+            });
+
+            // AI Growth Chart
+            const aiCtx = document.getElementById('aiGrowthChart').getContext('2d');
+            new Chart(aiCtx, {
+                type: 'line',
+                data: {
+                    labels: ['2019', '2020', '2021', '2022', '2023', '2024', '2025', '2028'],
+                    datasets: [{
+                        label: 'Mercado IA Agricultura (Billones USD)',
+                        data: [1.1, 1.3, 1.6, 2.0, 2.5, 3.0, 3.8, 4.7],
+                        borderColor: '#2E7D32',
+                        backgroundColor: 'rgba(46, 125, 50, 0.1)',
+                        fill: true,
+                        tension: 0.4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            title: {
+                                display: true,
+                                text: 'Billones USD'
+                            }
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            display: false
+                        }
+                    }
+                }
+            });
+
+            // Animate progress bars
+            setTimeout(() => {
+                document.querySelectorAll('.progress-bar-custom').forEach(bar => {
+                    const width = bar.style.width;
+                    bar.style.width = '0%';
+                    setTimeout(() => {
+                        bar.style.width = width;
+                    }, 100);
+                });
+            }, 1000);
+        });
+
+        // Add floating animation to cards
+        document.querySelectorAll('.opportunity-card').forEach((card, index) => {
+            card.style.animationDelay = `${index * 0.2}s`;
+            card.classList.add('floating-element');
+        });
+    </script>
+</body>
+</html>
