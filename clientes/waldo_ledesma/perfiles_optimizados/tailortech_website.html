@@ -1,0 +1,808 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TailorTech - Soluciones Tecnológicas Inteligentes | Chillán</title>
+    <meta name="description" content="Transformamos empresas agrícolas y retail en Chillán con IA, IoT y arquitecturas de datos. Optimización tecnológica accesible con ROI garantizado.">
+    <meta name="keywords" content="TailorTech, tecnología empresarial, agricultura inteligente, IoT Chillán, IA empresarial, optimización procesos">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://tailortech.cl">
+    <meta property="og:title" content="TailorTech - Tecnología Inteligente para Empresas">
+    <meta property="og:description" content="Optimizamos empresas con IA, IoT y análisis de datos. Partnership Chile-USA.">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <!-- CSS -->
+    <style>
+        :root {
+            --primary: #2563eb;
+            --primary-dark: #1d4ed8;
+            --secondary: #10b981;
+            --accent: #f59e0b;
+            --gray-50: #f9fafb;
+            --gray-100: #f3f4f6;
+            --gray-200: #e5e7eb;
+            --gray-600: #4b5563;
+            --gray-800: #1f2937;
+            --gray-900: #111827;
+            --white: #ffffff;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            color: var(--gray-800);
+            background-color: var(--white);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        /* Header */
+        header {
+            background: var(--white);
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--gray-600);
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        .cta-button {
+            background: var(--primary);
+            color: var(--white);
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .cta-button:hover {
+            background: var(--primary-dark);
+            transform: translateY(-1px);
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: var(--white);
+            padding: 8rem 0 6rem;
+            margin-top: 60px;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            margin-bottom: 3rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn-primary {
+            background: var(--white);
+            color: var(--primary);
+            padding: 1rem 2rem;
+            border-radius: 0.5rem;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--white);
+            border: 2px solid var(--white);
+            padding: 1rem 2rem;
+            border-radius: 0.5rem;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .btn-secondary:hover {
+            background: var(--white);
+            color: var(--primary);
+        }
+
+        /* Features */
+        .features {
+            padding: 6rem 0;
+            background: var(--gray-50);
+        }
+
+        .features h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 3rem;
+            color: var(--gray-900);
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .feature-card {
+            background: var(--white);
+            padding: 2rem;
+            border-radius: 1rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            text-align: center;
+            transition: transform 0.3s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        .feature-card h3 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--gray-900);
+        }
+
+        /* Cases Section */
+        .cases {
+            padding: 6rem 0;
+        }
+
+        .cases h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 3rem;
+            color: var(--gray-900);
+        }
+
+        .cases-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .case-card {
+            background: var(--white);
+            border: 1px solid var(--gray-200);
+            padding: 2rem;
+            border-radius: 1rem;
+            transition: all 0.3s;
+        }
+
+        .case-card:hover {
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+            border-color: var(--primary);
+        }
+
+        .case-tag {
+            background: var(--secondary);
+            color: var(--white);
+            padding: 0.25rem 0.75rem;
+            border-radius: 1rem;
+            font-size: 0.875rem;
+            font-weight: 600;
+            display: inline-block;
+            margin-bottom: 1rem;
+        }
+
+        .case-card h3 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--gray-900);
+        }
+
+        .case-result {
+            background: var(--gray-50);
+            padding: 1rem;
+            border-radius: 0.5rem;
+            margin-top: 1rem;
+            border-left: 4px solid var(--secondary);
+        }
+
+        .case-result strong {
+            color: var(--secondary);
+            font-size: 1.1rem;
+        }
+
+        /* About */
+        .about {
+            padding: 6rem 0;
+            background: var(--gray-50);
+        }
+
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .about-text h2 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 2rem;
+            color: var(--gray-900);
+        }
+
+        .about-text p {
+            font-size: 1.1rem;
+            margin-bottom: 1.5rem;
+            color: var(--gray-600);
+        }
+
+        .about-stats {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+        }
+
+        .stat {
+            text-align: center;
+            padding: 1.5rem;
+            background: var(--white);
+            border-radius: 0.5rem;
+        }
+
+        .stat-number {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary);
+            display: block;
+        }
+
+        .stat-label {
+            font-size: 0.875rem;
+            color: var(--gray-600);
+            font-weight: 500;
+        }
+
+        /* Contact */
+        .contact {
+            padding: 6rem 0;
+            background: var(--gray-900);
+            color: var(--white);
+        }
+
+        .contact h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 3rem;
+        }
+
+        .contact-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: start;
+        }
+
+        .contact-info h3 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            color: var(--secondary);
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .contact-item i {
+            font-size: 1.5rem;
+            color: var(--secondary);
+            width: 2rem;
+            margin-right: 1rem;
+        }
+
+        .contact-form {
+            background: var(--white);
+            padding: 2rem;
+            border-radius: 1rem;
+        }
+
+        .contact-form h3 {
+            color: var(--gray-900);
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--gray-700);
+            font-weight: 500;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid var(--gray-200);
+            border-radius: 0.5rem;
+            font-family: inherit;
+        }
+
+        .form-group textarea {
+            height: 120px;
+            resize: vertical;
+        }
+
+        .submit-btn {
+            background: var(--primary);
+            color: var(--white);
+            padding: 0.75rem 2rem;
+            border: none;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s;
+            width: 100%;
+        }
+
+        .submit-btn:hover {
+            background: var(--primary-dark);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--gray-900);
+            color: var(--gray-200);
+            padding: 2rem 0;
+            text-align: center;
+            border-top: 1px solid var(--gray-800);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .about-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .contact-content {
+                grid-template-columns: 1fr;
+            }
+
+            .container {
+                padding: 0 0.5rem;
+            }
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in {
+            animation: fadeInUp 0.6s ease-out;
+        }
+
+        /* WhatsApp Button */
+        .whatsapp-float {
+            position: fixed;
+            width: 60px;
+            height: 60px;
+            bottom: 40px;
+            right: 40px;
+            background-color: #25d366;
+            color: white;
+            border-radius: 50px;
+            text-align: center;
+            font-size: 30px;
+            box-shadow: 2px 2px 3px #999;
+            z-index: 100;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+        }
+
+        .whatsapp-float:hover {
+            transform: scale(1.1);
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <nav>
+                <a href="#" class="logo">
+                    <i class="fas fa-cogs"></i> TailorTech
+                </a>
+                <ul class="nav-links">
+                    <li><a href="#inicio">Inicio</a></li>
+                    <li><a href="#servicios">Servicios</a></li>
+                    <li><a href="#casos">Casos de Éxito</a></li>
+                    <li><a href="#nosotros">Nosotros</a></li>
+                    <li><a href="#contacto">Contacto</a></li>
+                </ul>
+                <a href="#contacto" class="cta-button">
+                    <i class="fas fa-phone"></i> Conversemos
+                </a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="inicio" class="hero">
+        <div class="container">
+            <h1 class="fade-in">Transformamos Tu Empresa con Tecnología Inteligente</h1>
+            <p class="fade-in">Optimización tecnológica accesible para empresas de Chillán. Combinamos IA, IoT y experiencia internacional para generar ROI desde el primer mes.</p>
+            <div class="hero-buttons fade-in">
+                <a href="#contacto" class="btn-primary">
+                    <i class="fas fa-rocket"></i> Diagnóstico Gratuito
+                </a>
+                <a href="#casos" class="btn-secondary">
+                    <i class="fas fa-chart-line"></i> Ver Casos de Éxito
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="servicios" class="features">
+        <div class="container">
+            <h2>¿Cómo Optimizamos Tu Empresa?</h2>
+            <div class="features-grid">
+                <div class="feature-card fade-in">
+                    <div class="feature-icon">
+                        <i class="fas fa-seedling"></i>
+                    </div>
+                    <h3>Agricultura Inteligente</h3>
+                    <p>Optimización de rutas, tracking de personal y monitoreo de variables ambientales en tiempo real. Tecnología que usan hasta los adultos mayores.</p>
+                </div>
+                <div class="feature-card fade-in">
+                    <div class="feature-icon">
+                        <i class="fas fa-store"></i>
+                    </div>
+                    <h3>Retail Optimizado</h3>
+                    <p>Sistemas de pagos inteligentes, gestión de inventarios con IA y dashboards para mejores decisiones empresariales.</p>
+                </div>
+                <div class="feature-card fade-in">
+                    <div class="feature-icon">
+                        <i class="fas fa-microchip"></i>
+                    </div>
+                    <h3>IoT & Sensores</h3>
+                    <p>Desarrollamos hardware propio para monitoreo especializado. Desde calidad del aire hasta tracking de recursos empresariales.</p>
+                </div>
+                <div class="feature-card fade-in">
+                    <div class="feature-icon">
+                        <i class="fas fa-robot"></i>
+                    </div>
+                    <h3>IA Empresarial</h3>
+                    <p>Arquitecturas de datos preparadas para IA. Integración con chatbots, automatización y análisis predictivo.</p>
+                </div>
+                <div class="feature-card fade-in">
+                    <div class="feature-icon">
+                        <i class="fas fa-mobile-alt"></i>
+                    </div>
+                    <h3>Apps WhatsApp</h3>
+                    <p>Sistemas que aprovechan plataformas familiares. Bots inteligentes y automatización a través de WhatsApp Business.</p>
+                </div>
+                <div class="feature-card fade-in">
+                    <div class="feature-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3>Seguridad & Escalabilidad</h3>
+                    <p>15+ años de experiencia en arquitecturas seguras. Sistemas que crecen contigo sin comprometer la seguridad.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Cases Section -->
+    <section id="casos" class="cases">
+        <div class="container">
+            <h2>Casos de Éxito Comprobados</h2>
+            <div class="cases-grid">
+                <div class="case-card fade-in">
+                    <span class="case-tag">Innovación Social</span>
+                    <h3>Sistema de Alarmas Comunitarias WhatsApp</h3>
+                    <p><strong>Desafío:</strong> Crear un sistema de seguridad barrial que fuera fácil de usar para todas las edades, especialmente adultos mayores.</p>
+                    <p><strong>Solución:</strong> Bot inteligente de WhatsApp con base de datos comunitaria, triggers automáticos por comandos de voz y texto, sistema SOS integrado.</p>
+                    <div class="case-result">
+                        <strong>Resultado:</strong> 95% adopción comunitaria, incluyendo adultos mayores. Reducción 60% tiempo respuesta emergencias.
+                    </div>
+                </div>
+                
+                <div class="case-card fade-in">
+                    <span class="case-tag">IoT Hardware</span>
+                    <h3>Sensores de Calidad del Aire</h3>
+                    <p><strong>Desafío:</strong> Monitoreo 24/7 de calidad del aire en hogares y espacios de trabajo, con alertas proactivas.</p>
+                    <p><strong>Solución:</strong> Hardware de desarrollo propio, integración con WhatsApp para alertas, dashboard web para análisis histórico.</p>
+                    <div class="case-result">
+                        <strong>Resultado:</strong> Prevención proactiva de problemas respiratorios. Alertas automáticas CO y humo en tiempo real.
+                    </div>
+                </div>
+                
+                <div class="case-card fade-in">
+                    <span class="case-tag">Optimización Logística</span>
+                    <h3>Rutas Inteligentes Agricultura</h3>
+                    <p><strong>Desafío:</strong> Empresa agrícola perdía 30% eficiencia en transporte por rutas mal optimizadas y falta de tracking.</p>
+                    <p><strong>Solución:</strong> Algoritmos de optimización en tiempo real, GPS tracking integrado, dashboard para supervisión.</p>
+                    <div class="case-result">
+                        <strong>Resultado:</strong> 25% reducción costos combustible. 40% mejora en puntualidad entregas.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="nosotros" class="about">
+        <div class="container">
+            <div class="about-content">
+                <div class="about-text">
+                    <h2>Partnership Chile-USA que Marca la Diferencia</h2>
+                    <p>Somos <strong>Waldo Ledesma</strong>, Ingeniero Civil Informático con 15+ años de experiencia, y mi socio estratégico, PhD en Ingeniería Civil que trabaja en investigación de IA en la Universidad de Memphis.</p>
+                    <p>Esta alianza Chile-USA nos permite ofrecer <strong>tecnología de vanguardia a precios regionales</strong>, combinando investigación internacional con comprensión profunda del mercado local.</p>
+                    <p>Mi experiencia incluye gestión empresarial como Gerente General, docencia en múltiples universidades, y certificaciones internacionales (Oracle, CSU California).</p>
+                </div>
+                <div class="about-stats">
+                    <div class="stat">
+                        <span class="stat-number">15+</span>
+                        <span class="stat-label">Años Experiencia</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-number">3</span>
+                        <span class="stat-label">Casos Éxito</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-number">95%</span>
+                        <span class="stat-label">Adopción Usuarios</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-number">30%</span>
+                        <span class="stat-label">ROI Promedio</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contacto" class="contact">
+        <div class="container">
+            <h2>¿Listo para Optimizar Tu Empresa?</h2>
+            <div class="contact-content">
+                <div class="contact-info">
+                    <h3>Conversemos Hoy Mismo</h3>
+                    <p style="margin-bottom: 2rem;">Diagnóstico gratuito para identificar mínimo 3 oportunidades de optimización en tu empresa.</p>
+                    
+                    <div class="contact-item">
+                        <i class="fas fa-phone"></i>
+                        <div>
+                            <strong>+56 9 4003 5815</strong><br>
+                            <small>WhatsApp disponible 8:00 - 20:00</small>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <i class="fas fa-envelope"></i>
+                        <div>
+                            <strong>w.ledesma.v@gmail.com</strong><br>
+                            <small>Respuesta en menos de 2 horas</small>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <div>
+                            <strong>Chillán, Región de Ñuble</strong><br>
+                            <small>Atención presencial y remota</small>
+                        </div>
+                    </div>
+
+                    <div style="margin-top: 2rem; padding: 1.5rem; background: rgba(16, 185, 129, 0.1); border-radius: 0.5rem; border: 1px solid var(--secondary);">
+                        <h4 style="color: var(--secondary); margin-bottom: 0.5rem;">
+                            <i class="fas fa-gift"></i> Oferta de Lanzamiento
+                        </h4>
+                        <p><strong>Diagnóstico Empresarial GRATUITO</strong></p>
+                        <p>Identificamos mínimo 3 oportunidades de optimización con ROI estimado. Sin compromiso, sin costo.</p>
+                    </div>
+                </div>
+                
+                <div class="contact-form">
+                    <h3>Solicita tu Diagnóstico Gratuito</h3>
+                    <form action="#" method="POST">
+                        <div class="form-group">
+                            <label for="nombre">Nombre Completo *</label>
+                            <input type="text" id="nombre" name="nombre" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="empresa">Empresa</label>
+                            <input type="text" id="empresa" name="empresa">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="telefono">Teléfono *</label>
+                            <input type="tel" id="telefono" name="telefono" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" id="email" name="email">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="desafio">¿Cuál es tu principal desafío tecnológico?</label>
+                            <textarea id="desafio" name="desafio" placeholder="Ej: Necesitamos optimizar rutas de transporte, mejorar control de inventario, automatizar procesos manuales..."></textarea>
+                        </div>
+                        
+                        <button type="submit" class="submit-btn">
+                            <i class="fas fa-rocket"></i> Solicitar Diagnóstico Gratuito
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 TailorTech Soluciones Tecnológicas. Todos los derechos reservados.</p>
+            <p>Desarrollado con tecnología chilena | Partnership Chile-USA</p>
+        </div>
+    </footer>
+
+    <!-- WhatsApp Float Button -->
+    <a href="https://wa.me/56940035815?text=Hola,%20me%20interesa%20el%20diagnóstico%20gratuito%20de%20TailorTech" class="whatsapp-float" target="_blank">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <!-- JavaScript -->
+    <script>
+        // Smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Fade in animation on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('fade-in');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.feature-card, .case-card').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Form submission
+        document.querySelector('form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('¡Gracias por tu interés! Nos pondremos en contacto contigo en las próximas 2 horas.');
+        });
+
+        // Add mobile menu toggle (simplified)
+        if (window.innerWidth <= 768) {
+            const navLinks = document.querySelector('.nav-links');
+            navLinks.style.display = 'none';
+        }
+    </script>
+</body>
+</html>
